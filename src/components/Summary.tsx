@@ -1,6 +1,8 @@
-import { Check } from 'lucide-react';
 import React from 'react';
+import Swal from 'sweetalert2';
+import { Check } from 'lucide-react';
 import type { QuoteFormData } from '../utils/types';
+import { sendQuoteEmail, downloadPdf } from '../utils/export';
 import { calculatePremiumAmount } from '../utils/calculations'
 
 export interface SummaryProps {
@@ -21,13 +23,22 @@ const Summary: React.FC<SummaryProps> = ({ back, resetForm, data }) => {
     }
   };
   
-  const getPolicy = () => {
-    console.log(data)
-    alert("Done")
+  const getPolicy = async () => {
+    const success = await downloadPdf(data, premium);
+    if (success) {
+      Swal.fire('Success!', 'Your quote was generated success.', 'success');
+    } else {
+      Swal.fire('Oops!', 'Failed to send your quote. Try again later.', 'error');
+    }
   }
 
-  const emailPolicy = () => {
-    alert("Done Policy")
+  const emailPolicy = async () => {
+    const success = await sendQuoteEmail(data, premium);
+    if (success) {
+      Swal.fire('Success!', 'Your quote was sent via email.', 'success');
+    } else {
+      Swal.fire('Oops!', 'Failed to send your quote. Try again later.', 'error');
+    }
   }
 
   return (
