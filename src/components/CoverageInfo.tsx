@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Shield, Check } from 'lucide-react';
-
-type CoverageType = 'basic' | 'standard' | 'comprehensive';
+import type { CoverageType } from '../utils/types';
 
 interface CoverageOption {
   id: CoverageType;
@@ -109,7 +108,7 @@ const CoverageInfo: React.FC<CoverageInfoProps> = ({ next, back, updateForm, dat
               : 'bg-gray-300 text-gray-500 cursor-not-allowed'
           }`}
         >
-          Next
+          Get Quote
           <ChevronRight size={20} />
         </button>
       </div>

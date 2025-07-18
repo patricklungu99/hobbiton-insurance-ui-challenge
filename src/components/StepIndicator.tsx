@@ -1,15 +1,5 @@
 import { Car, User, Shield, FileText, Check } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
-
-type Step = {
-  id: number;
-  title: string;
-  icon: LucideIcon;
-};
-
-type StepIndicatorProps = {
-  currentStep: number;
-};
+import type { Step, StepIndicatorProps } from '../utils/types';
 
 const StepIndicator: React.FC<StepIndicatorProps> = ({ currentStep }) => {
   const steps: Step[] = [

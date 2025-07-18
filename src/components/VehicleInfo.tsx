@@ -1,27 +1,15 @@
 import { useState } from 'react';
 import { Car, ChevronRight } from 'lucide-react';
+import type { VehicleType, VehicleInfoData, UsageType } from '../utils/types';
 
-type VehicleType = 'car' | 'suv' | 'pickup' | 'motorcycle';
-type UsageType = 'personal' | 'business' | 'commercial';
-
-interface VehicleFormData {
-  vehicleType: VehicleType | '';
-  make: string;
-  model: string;
-  year: string;
-  value: string;
-  usage: UsageType | '';
-}
-
-interface Props {
+interface VehicleProps {
   next: () => void;
-  back: () => void;
-  updateForm: (data: VehicleFormData) => void;
-  data: VehicleFormData;
+  updateForm: (data: VehicleInfoData) => void;
+  data: VehicleInfoData;
 }
 
-export default function VehicleInfo({ next, updateForm, data }: Props) {
-  const [formState, setFormState] = useState<VehicleFormData>({
+export default function VehicleInfo({ next, updateForm, data }: VehicleProps) {
+  const [formState, setFormState] = useState<VehicleInfoData>({
     vehicleType: data.vehicleType || '',
     make: data.make || '',
     model: data.model || '',
@@ -30,7 +18,7 @@ export default function VehicleInfo({ next, updateForm, data }: Props) {
     usage: data.usage || ''
   });
 
-  const handleChange = <K extends keyof VehicleFormData>(field: K, value: VehicleFormData[K]) => {
+  const handleChange = <K extends keyof VehicleInfoData>(field: K, value: VehicleInfoData[K]) => {
     setFormState(prev => ({
       ...prev,
       [field]: value

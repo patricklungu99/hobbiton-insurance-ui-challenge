@@ -1,29 +1,23 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, FileText } from 'lucide-react';
-
-interface FormData {
-  fullName: string;
-  phone: string;
-  email: string;
-  nrc: string;
-}
+import type { PersonalInfoData } from '../utils/types';
 
 interface PersonalInfoProps {
-  data: FormData;
-  updateForm: (formData: Partial<FormData>) => void;
+  data: PersonalInfoData;
+  updateForm: (formData: Partial<PersonalInfoData>) => void;
   next: () => void;
   back: () => void;
 }
 
 const PersonalInfo: React.FC<PersonalInfoProps> = ({ next, back, updateForm, data }) => {
-  const [formState, setFormState] = useState<FormData>({
+  const [formState, setFormState] = useState<PersonalInfoData>({
     fullName: data.fullName || '',
     phone: data.phone || '',
     email: data.email || '',
     nrc: data.nrc || '',
   });
 
-  const handleChange = (field: keyof FormData, value: string) => {
+  const handleChange = (field: keyof PersonalInfoData, value: string) => {
     setFormState((prev) => ({
       ...prev,
       [field]: value,
@@ -94,7 +88,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ next, back, updateForm, dat
               : 'bg-gray-300 text-gray-500 cursor-not-allowed'
           }`}
         >
-          Get Quote
+          Next
           <ChevronRight size={20} />
         </button>
       </div>

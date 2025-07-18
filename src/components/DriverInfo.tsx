@@ -1,27 +1,22 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, User } from 'lucide-react';
+import type { DriverInfoData } from '../utils/types';
 
-type DriverInfoProps = {
+export interface DriverInfoProps {
+  data: DriverInfoData;
+  updateForm: (formData: Partial<DriverInfoData>) => void;
   next: () => void;
   back: () => void;
-  updateForm: (formData: DriverFormData) => void;
-  data: DriverFormData;
-};
-
-type DriverFormData = {
-  driverAge: string;
-  experience: string;
-  location: string;
-};
+} 
 
 const DriverInfo: React.FC<DriverInfoProps> = ({ next, back, updateForm, data }) => {
-  const [formState, setFormState] = useState<DriverFormData>({
+  const [formState, setFormState] = useState<DriverInfoData>({
     driverAge: data.driverAge || '',
     experience: data.experience || '',
     location: data.location || ''
   });
 
-  const handleChange = (field: keyof DriverFormData, value: string) => {
+  const handleChange = (field: keyof DriverInfoData, value: string) => {
     setFormState(prev => ({
       ...prev,
       [field]: value

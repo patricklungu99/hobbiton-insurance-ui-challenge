@@ -1,31 +1,16 @@
 import { Check } from 'lucide-react';
 import React from 'react';
+import type { QuoteFormData } from '../utils/types';
+import { calculatePremiumAmount } from '../utils/calculations'
 
-type CoverageType = 'basic' | 'standard' | 'comprehensive' | '';
-
-interface FormData {
-  fullName: string;
-  make: string;
-  model: string;
-  year: number | string;
-  location: string;
-  coverageType: CoverageType;
-}
-
-interface SummaryProps {
-  data: FormData;
+export interface SummaryProps {
+  data: QuoteFormData;
   back: () => void;
+  resetForm: () => void;
 }
 
-const Summary: React.FC<SummaryProps> = ({ back, data }) => {
-  const getPremiumAmount = (): number => {
-    switch (data.coverageType) {
-      case 'basic': return 800;
-      case 'standard': return 1500;
-      case 'comprehensive': return 2200;
-      default: return 0;
-    }
-  };
+const Summary: React.FC<SummaryProps> = ({ back, resetForm, data }) => {
+  const premium = calculatePremiumAmount(data);
 
   const getCoverageName = (): string => {
     switch (data.coverageType) {
@@ -84,11 +69,11 @@ const Summary: React.FC<SummaryProps> = ({ back, data }) => {
           <div className="flex justify-between items-center">
             <span className="text-lg font-semibold">Annual Premium:</span>
             <span className="text-2xl font-bold text-green-600">
-              ZMW {getPremiumAmount().toLocaleString()}
+              ZMW {premium.toLocaleString()}
             </span>
           </div>
           <div className="text-sm text-gray-500 mt-1">
-            Monthly payments available from ZMW {Math.ceil(getPremiumAmount() / 12)}
+            Monthly payments available from ZMW {Math.ceil(premium / 12)}
           </div>
         </div>
       </div>
@@ -127,9 +112,15 @@ const Summary: React.FC<SummaryProps> = ({ back, data }) => {
         </button>
         <button
           onClick={back}
-          className="w-full bg-gray-200 text-gray-700 py-3 px-6 rounded-lg cursor-pointer hover:bg-gray-300 transition-colors font-medium"
+          className="w-full bg-gray-200 border-gray-700 text-gray-700 py-3 px-6 rounded-lg cursor-pointer hover:bg-gray-300 transition-colors font-medium"
         >
           Back to Edit Details
+        </button>
+        <button
+          onClick={resetForm}
+          className="w-full bg-red-500 text-white py-3 px-6 rounded-lg cursor-pointer hover:bg-red-400 hover:text-gray-800 transition-colors font-medium"
+        >
+          Start Over
         </button>
       </div>
     </div>
