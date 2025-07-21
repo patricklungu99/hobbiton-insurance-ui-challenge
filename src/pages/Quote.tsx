@@ -1,5 +1,6 @@
 import Swal from 'sweetalert2'
 import { useState } from 'react';
+import { debounce } from 'lodash-es';
 import { loadFormState, saveFormState, clearFormState } from '../utils/storage';
 import type { QuoteFormData, PartialFormData } from '../utils/types';
 
@@ -88,12 +89,15 @@ const MotorInsuranceQuoteApp = () => {
     saveFormState(newStep, formData as any);
   };
 
+  const debouncedSave = debounce((step, data) => {
+    saveFormState(step, data as any);
+  }, 300);
+
   const updateForm = (data: PartialFormData): void => {
     const updated = { ...formData, ...data };
     setFormData(updated);
-    saveFormState(step, updated as any);
+    debouncedSave(step, updated);
   };
-
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-red-50 p-4">

@@ -22,24 +22,52 @@ const Summary: React.FC<SummaryProps> = ({ back, resetForm, data }) => {
       default: return 'Coverage';
     }
   };
-  
+
   const getPolicy = async () => {
+    Swal.fire({
+      title: 'Generating PDF...',
+      text: 'Please wait while we create your quote.',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
     const success = await downloadPdf(data, premium);
+
+    Swal.close();
+
     if (success) {
-      Swal.fire('Success!', 'Your quote was generated success.', 'success');
+      Swal.fire('Success!', 'Your quote was generated successfully.', 'success');
     } else {
-      Swal.fire('Oops!', 'Failed to send your quote. Try again later.', 'error');
+      Swal.fire('Oops!', 'Failed to generate your quote. Try again later.', 'error');
     }
-  }
+  };
+
 
   const emailPolicy = async () => {
+    Swal.fire({
+      title: 'Sending Email...',
+      text: 'We are delivering your quote via email.',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
     const success = await sendQuoteEmail(data, premium);
+
+    Swal.close();
+
     if (success) {
       Swal.fire('Success!', 'Your quote was sent via email.', 'success');
     } else {
       Swal.fire('Oops!', 'Failed to send your quote. Try again later.', 'error');
     }
-  }
+  };
+
 
   return (
     <div className="space-y-6">
@@ -109,14 +137,14 @@ const Summary: React.FC<SummaryProps> = ({ back, resetForm, data }) => {
       </div>
 
       <div className="flex flex-col gap-4">
-        <button 
-          onClick={getPolicy} 
+        <button
+          onClick={getPolicy}
           className="w-full bg-green-600 text-white py-3 px-6 rounded-lg cursor-pointer hover:bg-green-700 transition-colors font-medium"
         >
           Get My Policy Now
         </button>
         <button
-          onClick={emailPolicy} 
+          onClick={emailPolicy}
           className="w-full border border-green-600 text-green-600 py-3 px-6 rounded-lg cursor-pointer hover:bg-green-50 transition-colors font-medium"
         >
           Email Quote to Me

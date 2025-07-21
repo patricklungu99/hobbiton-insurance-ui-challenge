@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Shield, Car, Clock, Star, ChevronRight, Users, Award, Zap } from 'lucide-react';
+import Swal from 'sweetalert2';
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -70,6 +71,17 @@ const LandingPage: React.FC = () => {
     navigate('/quote');
   };
 
+  const handlePopup = () => {
+    Swal.fire({
+      icon: 'info',
+      title: 'Feature Coming Soon',
+      text: 'I’d love to, but due to time and scope... I couldn’t.',
+      confirmButtonText: 'Understood',
+    });
+  };
+
+
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50">
       {/* Navigation */}
@@ -77,9 +89,9 @@ const LandingPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-3">
-              <img 
-                src="https://www.hobbiton.tech/assets/logo2-7db998ca.png" 
-                alt="Hobbiton Technologies" 
+              <img
+                src="https://www.hobbiton.tech/assets/logo2-7db998ca.png"
+                alt="Hobbiton Technologies"
                 className="w-12 h-12 object-contain"
               />
               <div className="text-xl font-bold text-emerald-800">
@@ -89,8 +101,8 @@ const LandingPage: React.FC = () => {
             <div className="hidden md:flex items-center gap-8">
               <a href="#features" className="text-gray-700 hover:text-emerald-600 transition-colors">Features</a>
               {/* <a href="#about" className="text-gray-700 hover:text-emerald-600 transition-colors">About</a> */}
-              <a href="#contact" className="text-gray-700 hover:text-emerald-600 transition-colors">Contact</a>
-              <button 
+              <a href="/contact" className="text-gray-700 hover:text-emerald-600 transition-colors">Contact</a>
+              <button
                 onClick={handleGetQuote}
                 className="bg-emerald-600 text-white px-6 py-2 cursor-pointer rounded-full hover:bg-emerald-700 transition-all duration-300 transform hover:scale-105"
               >
@@ -110,30 +122,33 @@ const LandingPage: React.FC = () => {
                 <Zap className="w-4 h-4" />
                 Powered by Hobbiton Technologies
               </div>
-              
+
               <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
                 Motor Insurance
                 <span className="block text-emerald-600">Made Simple</span>
               </h1>
-              
+
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                Get comprehensive motor insurance coverage in Zambia with our intelligent quote system. 
+                Get comprehensive motor insurance coverage in Zambia with our intelligent quote system.
                 Fast, reliable, and tailored to your needs.
               </p>
-              
+
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <button 
+                <button
                   onClick={handleGetQuote}
                   className="bg-emerald-600 text-white px-8 py-4 cursor-pointer  rounded-full text-lg font-semibold hover:bg-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
                 >
                   Get My Quote Now
                   <ChevronRight className="w-5 h-5" />
                 </button>
-                <button className="border-2 border-emerald-600 cursor-pointer  text-emerald-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-emerald-50 transition-all duration-300">
+                <button
+                  onClick={handlePopup}
+                  className="border-2 border-emerald-600 cursor-pointer  text-emerald-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-emerald-50 transition-all duration-300"
+                >
                   Learn More
                 </button>
               </div>
-              
+
               <div className="flex items-center gap-6">
                 <div className="flex items-center gap-2">
                   <div className="flex">
@@ -148,7 +163,7 @@ const LandingPage: React.FC = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className={`transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
               <div className="relative">
                 <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-3xl p-8 shadow-2xl">
@@ -157,32 +172,32 @@ const LandingPage: React.FC = () => {
                       <Car className="w-8 h-8 text-emerald-600" />
                       <h3 className="text-xl font-bold text-gray-900">Quick Quote Preview</h3>
                     </div>
-                    
+
                     <div className="space-y-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Vehicle Make</label>
                         <div className="bg-gray-50 rounded-lg p-3 text-gray-900">Toyota Corolla</div>
                       </div>
-                      
+
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">Coverage Type</label>
                         <div className="bg-gray-50 rounded-lg p-3 text-gray-900">Comprehensive</div>
                       </div>
-                      
+
                       <div className="bg-emerald-50 rounded-lg p-4 border border-emerald-200">
                         <div className="flex justify-between items-center">
                           <span className="text-gray-700">Estimated Monthly Premium</span>
                           <span className="text-2xl font-bold text-emerald-600">K450</span>
                         </div>
                       </div>
-                      
+
                       <button className="w-full bg-emerald-600 text-white cursor-pointer  py-3 rounded-lg font-semibold hover:bg-emerald-700 transition-colors">
                         Get Detailed Quote
                       </button>
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Floating elements */}
                 <div className="absolute -top-4 -right-4 bg-white rounded-full p-4 shadow-lg">
                   <Shield className="w-6 h-6 text-emerald-600" />
@@ -219,7 +234,7 @@ const LandingPage: React.FC = () => {
               Experience the future of motor insurance with our innovative platform designed for Zambian drivers
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <div key={index} className="text-center group hover:transform hover:scale-105 transition-all duration-300">
@@ -241,7 +256,7 @@ const LandingPage: React.FC = () => {
           <p className="text-xl mb-8 text-emerald-100">
             Join thousands of satisfied customers who trust MotorGuard for their insurance needs
           </p>
-          <button 
+          <button
             onClick={handleGetQuote}
             className="bg-white text-emerald-600 px-8 py-4 rounded-full cursor-pointer text-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
           >
@@ -252,7 +267,7 @@ const LandingPage: React.FC = () => {
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">          
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="border-t border-gray-800 text-center text-gray-400">
             <p>&copy; 2025 MotorGuard by Hobbiton Technologies. All rights reserved.</p>
           </div>

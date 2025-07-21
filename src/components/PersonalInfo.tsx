@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, FileText } from 'lucide-react';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 import type { PersonalInfoData } from '../utils/types';
 
 interface PersonalInfoProps {
@@ -10,14 +12,14 @@ interface PersonalInfoProps {
 }
 
 const PersonalInfo: React.FC<PersonalInfoProps> = ({ next, back, updateForm, data }) => {
-  const [formState, setFormState] = useState<PersonalInfoData>({
+  const [formState, setFormState] = useState({
     fullName: data.fullName || '',
     phone: data.phone || '',
     email: data.email || '',
     nrc: data.nrc || '',
   });
 
-  const handleChange = (field: keyof PersonalInfoData, value: string) => {
+  const handleChange = (field: keyof typeof formState, value: string) => {
     setFormState((prev) => ({
       ...prev,
       [field]: value,
@@ -29,11 +31,16 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ next, back, updateForm, dat
     next();
   };
 
+  const isValidEmail = (email: string): boolean => {
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return pattern.test(email.trim());
+  };
+
   const isValid =
     formState.fullName.trim() &&
+    formState.nrc.trim() &&
     formState.phone.trim() &&
-    formState.email.trim() &&
-    formState.nrc.trim();
+    isValidEmail(formState.email);
 
   return (
     <div className="space-y-6">
@@ -44,23 +51,57 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ next, back, updateForm, dat
       </div>
 
       <div className="space-y-4">
-        {([
-          { label: 'Full Name', key: 'fullName', placeholder: 'John Doe', type: 'text' },
-          { label: 'NRC Number', key: 'nrc', placeholder: '123456/78/9', type: 'text' },
-          { label: 'Phone Number', key: 'phone', placeholder: '+260 XXX XXX XXX', type: 'tel' },
-          { label: 'Email Address', key: 'email', placeholder: 'john@example.com', type: 'email' },
-        ] as const).map(({ label, key, placeholder, type }) => (
-          <div key={key}>
-            <label className="block text-sm font-medium text-gray-700 mb-2">{label}</label>
-            <input
-              type={type}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              placeholder={placeholder}
-              value={formState[key]}
-              onChange={(e) => handleChange(key, e.target.value)}
-            />
-          </div>
-        ))}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+          <input
+            type="text"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            placeholder="John Doe"
+            value={formState.fullName}
+            onChange={(e) => handleChange('fullName', e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">NRC Number</label>
+          <input
+            type="text"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            placeholder="123456/78/9"
+            value={formState.nrc}
+            onChange={(e) => handleChange('nrc', e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+          <PhoneInput
+            country={'zm'}
+            value={formState.phone}
+            onChange={(phone) => handleChange('phone', phone)}
+            inputStyle={{
+              width: '100%',
+              padding: '16px',
+              borderRadius: '8px',
+              border: '1px solid #ccc',
+            }}
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+          <input
+            type="email"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            placeholder="john@example.com"
+            value={formState.email}
+            onChange={(e) => handleChange('email', e.target.value)}
+          />
+        </div>
+        {formState.email && !isValidEmail(formState.email) && (
+          <p className="text-sm text-red-500 mt-1">Please enter a valid email address</p>
+        )}
+
       </div>
 
       <div className="bg-yellow-50 p-4 rounded-lg">
@@ -82,11 +123,10 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ next, back, updateForm, dat
         <button
           onClick={handleNext}
           disabled={!isValid}
-          className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors ${
-            isValid
+          className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors ${isValid
               ? 'bg-green-600 text-white hover:bg-green-700 cursor-pointer'
               : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-          }`}
+            }`}
         >
           Next
           <ChevronRight size={20} />

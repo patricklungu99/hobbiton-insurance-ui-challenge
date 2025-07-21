@@ -8,6 +8,8 @@ const template_id = import.meta.env.Template_id;
 const public_key = import.meta.env.Public_key;
 
 export const sendQuoteEmail = async (formData: QuoteFormData, premium: number): Promise<boolean> => {
+  console.log(service_id, template_id)
+  console.log(public_key)
   try {
     const result = await emailjs.send(
       service_id,   
@@ -170,7 +172,7 @@ const createPDFContent = (data: QuoteFormData, premium: number): string => {
         ">
           <h3 style="margin: 0 0 10px 0; font-size: 18px; font-weight: normal; opacity: 0.9;">Total Premium</h3>
           <div style="font-size: 42px; font-weight: bold; margin: 0;">ZMW ${premium.toLocaleString()}</div>
-          <p style="margin: 10px 0 0 0; font-size: 14px; opacity: 0.9;">per month</p>
+          <p style="margin: 10px 0 0 0; font-size: 14px; opacity: 0.9;">${data.value} per month</p>
         </div>
 
         <!-- Information Cards Grid -->
