@@ -1,69 +1,135 @@
-# React + TypeScript + Vite
+# Motor Insurance Quote Flow
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, user-friendly React + TypeScript web app for generating personalized motor insurance quotes in Zambia. Built with Vite, Tailwind CSS, and a step-by-step guided flow, users can quickly get a quote, download a PDF, or receive it by email.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚗 Overview
 
-## Expanding the ESLint configuration
+**MotorGuard** is a demo insurance quote system designed for Zambian drivers. It provides a seamless, multi-step experience for users to:
+- Enter vehicle, driver, and personal details
+- Select coverage options
+- Instantly view a premium quote
+- Download a PDF or email the quote
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The app is fully client-side, with data persistence via localStorage and export via PDF or email (EmailJS integration).
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## ✨ Features
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Step-by-step quote flow** with progress indicator
+- **Instant premium calculation** based on user input
+- **PDF export** of the quote summary
+- **Email delivery** of the quote (via EmailJS)
+- **Data persistence** (auto-saves progress in localStorage)
+- **Responsive, modern UI** (Tailwind CSS)
+- **Validation and user feedback** (SweetAlert2 popups)
+- **404 and Contact pages** (Contact is a placeholder)
+
+---
+
+## 🖥️ Demo Flow
+
+1. **Landing Page**: Introduction, features, testimonials, and CTA to get a quote.
+2. **Quote Steps**:
+   - **Vehicle Info**: Type, make, model, year, value, usage
+   - **Personal Info**: Name, phone, email, NRC
+   - **Driver Info**: Age, experience, location
+   - **Coverage Selection**: Basic, Standard, or Comprehensive
+   - **Summary**: Premium breakdown, export/email options
+3. **Export**: Download a styled PDF or send the quote to your email.
+4. **Persistence**: Progress is saved automatically; users can reset at any time.
+5. **404/Contact**: Friendly error and placeholder contact page.
+
+---
+
+## 🛠️ Tech Stack
+
+- **React 19** + **TypeScript**
+- **Vite** (dev/build tool)
+- **Tailwind CSS** (utility-first styling)
+- **SweetAlert2** (popups/alerts)
+- **EmailJS** (email delivery)
+- **jsPDF** + **html2canvas** (PDF export)
+- **React Router v7** (routing)
+- **Lucide React** (icons)
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18+ recommended)
+- npm or yarn
+
+### Installation
+```bash
+npm install
+# or
+yarn install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Development
+```bash
+npm run dev
+# or
+yarn dev
 ```
+
+### Build for Production
+```bash
+npm run build
+```
+
+### Linting
+```bash
+npm run lint
+```
+
+---
+
+## 📁 Folder Structure
+
+```
+├── src/
+│   ├── components/      # Reusable UI components (forms, summary, stepper)
+│   ├── pages/           # Main pages (Home, Quote, Contact, NotFound)
+│   ├── utils/           # Utility functions (calculations, export, storage, types)
+│   ├── assets/          # Static assets (SVGs)
+│   ├── App.tsx          # App routes
+│   └── main.tsx         # App entry point
+├── public/              # Static public assets
+├── index.html           # Main HTML file
+├── tailwind.config.cjs  # Tailwind config
+├── vite.config.ts       # Vite config
+└── ...
+```
+
+---
+
+## ⚙️ Environment Variables
+
+To enable email delivery, set the following in your environment (e.g., `.env`):
+```
+VITE_Service_id=your_emailjs_service_id
+VITE_Template_id=your_emailjs_template_id
+VITE_Public_key=your_emailjs_public_key
+```
+
+---
+
+## 📝 Credits
+
+- UI/UX: Tailwind CSS, Lucide Icons
+- Alerts: SweetAlert2
+- PDF: jsPDF, html2canvas
+- Email: EmailJS
+- Built by Patrick Lungu
+
+---
+
+## 📢 Notes
+- The Contact page is a placeholder.
+- This is a demo; no backend or real policy purchase.
+- For questions, see the code or open an issue.
