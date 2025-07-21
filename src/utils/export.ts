@@ -172,7 +172,7 @@ const createPDFContent = (data: QuoteFormData, premium: number): string => {
         ">
           <h3 style="margin: 0 0 10px 0; font-size: 18px; font-weight: normal; opacity: 0.9;">Total Premium</h3>
           <div style="font-size: 42px; font-weight: bold; margin: 0;">ZMW ${premium.toLocaleString()}</div>
-          <p style="margin: 10px 0 0 0; font-size: 14px; opacity: 0.9;">${data.value} per month</p>
+          <p style="margin: 10px 0 0 0; font-size: 14px; opacity: 0.9;">${Math.ceil(premium / 12)} per month</p>
         </div>
 
         <!-- Information Cards Grid -->
