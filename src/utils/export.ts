@@ -3,9 +3,9 @@ import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 import type { QuoteFormData } from './types';
 
-const service_id = import.meta.env.Service_id;
-const template_id = import.meta.env.Template_id;
-const public_key = import.meta.env.Public_key;
+const service_id = 'service_ro1bv8o';
+const template_id = "template_pnlfapc";
+const public_key = "ZcVsizaGm48dwFxBj";
 
 export const sendQuoteEmail = async (formData: QuoteFormData, premium: number): Promise<boolean> => {
   console.log(service_id, template_id)
@@ -24,6 +24,8 @@ export const sendQuoteEmail = async (formData: QuoteFormData, premium: number): 
         coverage: formData.coverageType,
         location: formData.location,
         premium_amount: premium, 
+        monthly_amount: premium / 12,
+        time: new Date().toLocaleDateString()
       },
       public_key    
     );
@@ -193,7 +195,7 @@ const createPDFContent = (data: QuoteFormData, premium: number): string => {
               font-weight: bold;
               font-size: 16px;
             ">
-              👤 Personal Information
+              Personal Information
             </div>
             <div style="padding: 20px;">
               <div style="margin-bottom: 12px;">
@@ -230,7 +232,7 @@ const createPDFContent = (data: QuoteFormData, premium: number): string => {
               font-weight: bold;
               font-size: 16px;
             ">
-              🚗 Vehicle Information
+              Vehicle Information
             </div>
             <div style="padding: 20px;">
               <div style="margin-bottom: 12px;">

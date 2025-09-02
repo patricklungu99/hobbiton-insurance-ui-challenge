@@ -57,14 +57,26 @@ const Summary: React.FC<SummaryProps> = ({ back, resetForm, data }) => {
       }
     });
 
-    const success = await sendQuoteEmail(data, premium);
+    try {
+      const success = await sendQuoteEmail(data, premium);
 
-    Swal.close();
+      Swal.close();
 
-    if (success) {
-      Swal.fire('Success!', 'Your quote was sent via email.', 'success');
-    } else {
-      Swal.fire('Oops!', 'Failed to send your quote. Try again later.', 'error');
+      if (success) {
+        Swal.fire('Success!', 'Your quote was sent via email.', 'success');
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops!',
+          text: 'Failed to send your quote. Try again later.',
+          timer: 2000,          
+          showConfirmButton: false
+        });
+      }
+    } catch (error) {
+      Swal.close();
+      console.error("Error sending email:", error);
+      Swal.fire('Error!', 'Something went wrong while sending your quote.', 'error');
     }
   };
 

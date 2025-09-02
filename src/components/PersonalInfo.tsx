@@ -81,7 +81,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ next, back, updateForm, dat
             onChange={(phone) => handleChange('phone', phone)}
             inputStyle={{
               width: '100%',
-              padding: '16px',
+              padding: '16px 3rem',
               borderRadius: '8px',
               border: '1px solid #ccc',
             }}
