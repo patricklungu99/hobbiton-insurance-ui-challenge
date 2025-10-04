@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Shield, Car, Clock, Star, ChevronRight, Users, Award, Zap } from 'lucide-react';
 import Swal from 'sweetalert2';
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
-  const [isVisible, setIsVisible] = useState(false);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [isVisible] = useState(false);
+  // const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-  useEffect(() => {
-    setIsVisible(true);
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
+  // useEffect(() => {
+  //   setIsVisible(true);
+  //   const interval = setInterval(() => {
+  //     setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+  //   }, 4000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   const features = [
     {
@@ -39,26 +39,26 @@ const LandingPage: React.FC = () => {
     }
   ];
 
-  const testimonials = [
-    {
-      name: "Sarah Mwansa",
-      location: "Lusaka",
-      text: "Got my motor insurance quote in under a minute! The process was so smooth and transparent.",
-      rating: 5
-    },
-    {
-      name: "James Banda",
-      location: "Ndola",
-      text: "Best rates I've found in Zambia. The coverage options are exactly what I needed.",
-      rating: 5
-    },
-    {
-      name: "Grace Phiri",
-      location: "Kitwe",
-      text: "Finally, an insurance platform that actually works! Clean interface and great service.",
-      rating: 5
-    }
-  ];
+  // const testimonials = [
+  //   {
+  //     name: "Sarah Mwansa",
+  //     location: "Lusaka",
+  //     text: "Got my motor insurance quote in under a minute! The process was so smooth and transparent.",
+  //     rating: 5
+  //   },
+  //   {
+  //     name: "James Banda",
+  //     location: "Ndola",
+  //     text: "Best rates I've found in Zambia. The coverage options are exactly what I needed.",
+  //     rating: 5
+  //   },
+  //   {
+  //     name: "Grace Phiri",
+  //     location: "Kitwe",
+  //     text: "Finally, an insurance platform that actually works! Clean interface and great service.",
+  //     rating: 5
+  //   }
+  // ];
 
   const stats = [
     { number: "50K+", label: "Happy Customers" },
