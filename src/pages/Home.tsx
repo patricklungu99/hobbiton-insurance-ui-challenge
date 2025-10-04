@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
-  const [isVisible] = useState(false);
+  const [isVisible] = useState(true);
   // const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   // useEffect(() => {
